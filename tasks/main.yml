@@ -1,0 +1,15 @@
+---
+# tasks file for ansible_zulip_message
+
+- name: Send zulip message
+  ansible.builtin.uri:
+    url: "{{ zulip_server_url }}"
+    method: POST
+    user: "{{ zulip_user }}"
+    password: "{{ zulip_api_key }}"
+    body_format: form-urlencoded
+    body:
+      - [type, stream]
+      - [to, "{{ zulip_stream }}"]
+      - [topic, "{{ zulip_topic }}"]
+      - [content, "{{ message }}"]
